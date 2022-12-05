@@ -37,6 +37,26 @@ public class BookDAO {
                 .stream().findAny().orElse(null);
     }
 
+    public List<Book> bookList(int id){
+        return jdbcTemplate.query("select title, author, year from book join person p on p.person_id = book.person_id where p.person_id=?",
+                new BeanPropertyRowMapper<>(Book.class), id);
+    }
+
+    public boolean check(int id){
+        return jdbcTemplate.query("select person.person_id from person join book b on person.person_id = b.person_id where b.id=?",
+                new BeanPropertyRowMapper<>(Book.class), id).stream().findAny().isPresent();
+    }
+
+    public Person book_busy(int id){
+        Person a = jdbcTemplate.query("select * from person join book b on person.person_id = b.person_id where b.id=?",
+                new BeanPropertyRowMapper<>(Person.class), id).stream().findAny().orElse(null);
+        if (a != null) {
+            System.out.println(a.getFullname());
+        }
+        return jdbcTemplate.query("SELECT Person.* FROM Book JOIN Person ON Book.person_id = Person.person_id WHERE Book.id = ?",
+                new BeanPropertyRowMapper<>(Person.class), id).stream().findAny().orElse(null);
+    }
+
     public void delete(int id){
         jdbcTemplate.update("delete from book where id=?", id);
     }

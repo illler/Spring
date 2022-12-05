@@ -1,6 +1,7 @@
 package org.crud.controllers;
 
 
+import org.crud.dao.BookDAO;
 import org.crud.dao.PersonDAO;
 import org.crud.models.Person;
 import org.crud.util.PersonValidator;
@@ -17,11 +18,13 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final BookDAO bookDAO;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
+    public PeopleController(PersonDAO personDAO, BookDAO bookDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.bookDAO = bookDAO;
         this.personValidator = personValidator;
     }
 
@@ -34,6 +37,8 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("check", personDAO.check(id));
+        model.addAttribute("bookList", bookDAO.bookList(id));
         return "people/show";
     }
 

@@ -1,10 +1,9 @@
 package org.crud.controllers;
 
 import org.crud.dao.BookDAO;
+import org.crud.dao.PersonDAO;
 import org.crud.models.Book;
-import org.crud.models.Person;
 import org.crud.util.BookValidator;
-import org.crud.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,20 +11,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/library/book")
 public class BookController {
 
     private final BookDAO bookDAO;
+    private final PersonDAO personDAO;
 
     private final BookValidator bookValidator;
 
 
     @Autowired
-    public BookController(BookDAO bookDAO, BookValidator bookValidator) {
+    public BookController(BookDAO bookDAO, PersonDAO personDAO, BookValidator bookValidator) {
         this.bookDAO = bookDAO;
+        this.personDAO = personDAO;
         this.bookValidator = bookValidator;
     }
 
@@ -39,6 +39,8 @@ public class BookController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("books", bookDAO.show(id));
+        model.addAttribute("check", bookDAO.check(id));
+        model.addAttribute("book_busy", bookDAO.book_busy(id));
         return "book/show";
     }
 

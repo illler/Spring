@@ -50,6 +50,13 @@ public class PersonDAO {
                 .stream().findAny().orElse(null);
     }
 
+    public boolean check(int id){
+        return jdbcTemplate.query("select id from book join person p on p.person_id = book.person_id where p.person_id=?",
+                new BeanPropertyRowMapper<>(Person.class), id).stream().findAny().isPresent();
+    }
+
+
+
     public void deleteAll(){
 //        jdbcTemplate.update("delete from Person where id>0");
     }

@@ -5,16 +5,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Book {
 
     private int id;
-    private int person_id;
     @NotEmpty(message = "Book should have a name!")
     private String title;
     private String author;
     private int year;
 
 
-    public Book(int id, int person_id, String title, String author, int year) {
-        this.id = id;
-        this.person_id = person_id;
+    public Book(String title, String author, int year) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -29,14 +26,7 @@ public class Book {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getPerson_id() {
-        return person_id;
-    }
-
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
-    }
+    
 
     public String getTitle() {
         return title;

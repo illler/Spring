@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Книга</title>
@@ -7,11 +7,23 @@
 <body>
 <p th:text="${books.getTitle() + ', ' + books.getAuthor() + ', ' + books.getYear()}"></p>
 
-<form th:method="PATCH" th:action="@{/library/book/{id}/edit(id=${books.getBook_id()})}">
-  <input type="submit" value="Edit"/>
-</form>
-<form th:method="DELETE" th:action="@{/library/book/{id}(id=${books.getBook_id()})}">
-  <input type="submit" value="Delete"/>
+<hr/>
+<div th:if="${check}">
+    <span>Книга сейчас у: </span><span th:text="${book_busy.getFullname()}">Person Name</span>
+    <br/>
+    <button>Человек вернул книгу</button>
+</div>
+
+<div th:if="${not check}">
+    <b>Книга свободна, кому её назначить</b>
+</div>
+<hr/>
+<a th:href="@{/library/book/{id}/edit(id=${books.geId()})}">
+    <button>Изменить</button>
+</a>
+<br/>
+<form th:method="DELETE" th:action="@{/library/book/{id}(id=${books.geId()})}">
+    <input type="submit" value="Delete"/>
 </form>
 </body>
 </html>
