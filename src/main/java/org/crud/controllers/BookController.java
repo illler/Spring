@@ -3,6 +3,7 @@ package org.crud.controllers;
 import org.crud.dao.BookDAO;
 import org.crud.dao.PersonDAO;
 import org.crud.models.Book;
+import org.crud.models.Person;
 import org.crud.util.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,7 @@ public class BookController {
         model.addAttribute("books", bookDAO.show(id));
         model.addAttribute("check", bookDAO.check(id));
         model.addAttribute("book_busy", bookDAO.book_busy(id));
+        model.addAttribute("people", personDAO.index());
         return "book/show";
     }
 
@@ -84,6 +86,28 @@ public class BookController {
         bookDAO.delete(id);
         return "redirect:/library/book";
     }
+
+    @PatchMapping("/{id}/del")
+    public String resque_book(@PathVariable("id") int id){
+        bookDAO.resque(id);
+        return "redirect:/library/book/" + id;
+    }
+    @PatchMapping("/{id}/upd")
+    public String chooseBook(@ModelAttribute("people") Person person, @PathVariable("id") int id,
+                             @Valid int people){
+        bookDAO.append(people, id);
+        return "redirect:/library/book/" + id;
+    }
+
+
+//    @GetMapping("/{id}")
+//    public String choosePerson(@PathVariable("id") int id,
+//                               Model model, @ModelAttribute("person")Person person){
+//
+//
+//        return "book/show";
+//    }
+
 
 
 }

@@ -83,10 +83,11 @@ public class PeopleController {
         return "redirect:/library/people";
     }
 
-    @GetMapping("/delete")
+
+    @DeleteMapping()
     public String deleteAll(){
         personDAO.deleteAll();
-        return "people/delete";
+        return "redirect:/library/people";
     }
 
     @GetMapping("/elina")

@@ -13,7 +13,8 @@
 <hr/>
 <a href="/library/people/new">Create new person</a>
 <br/>
-<a href="/library/people/delete">Delete all person</a>
-
+<form th:method="DELETE" th:action="@{/library/people/}">
+    <input type="submit" value="Удалить всех людей"/>
+    </form>
 </body>
 </html>

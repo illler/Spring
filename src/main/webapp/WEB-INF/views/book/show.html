@@ -11,11 +11,21 @@
 <div th:if="${check}">
     <span>Книга сейчас у: </span><span th:text="${book_busy.getFullname()}">Person Name</span>
     <br/>
-    <button>Человек вернул книгу</button>
+    <form th:method="PATCH" th:action="@{/library/book/{id}/del(id=${books.geId()})}">
+        <input type="submit" value="Освободить книгу"/>
+    </form>
 </div>
 
 <div th:if="${not check}">
-    <b>Книга свободна, кому её назначить</b>
+    <b>Книга свободна, кому её назначить?</b>
+    <form th:method="PATCH" th:action="@{/library/book/{id}/upd(id=${books.geId()})}">
+        <label for="person">Выберите человека:</label>
+        <select th:object="${people}" id="person" name="people">
+            <option th:each="person: ${people}" th:value="${person.getPerson_id()}"
+            th:text="${person.getFullname()}" ></option>
+        </select>
+        <input type="submit" value="Назначить книгу человеку">
+    </form>
 </div>
 <hr/>
 <a th:href="@{/library/book/{id}/edit(id=${books.geId()})}">

@@ -2,12 +2,17 @@ package org.crud.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class Book {
 
     private int id;
     @NotEmpty(message = "Book should have a name!")
     private String title;
     private String author;
+
+    @Max(value = 2022, message = "Книга не может быть в будущем!")
     private int year;
 
 

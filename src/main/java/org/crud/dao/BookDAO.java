@@ -48,13 +48,16 @@ public class BookDAO {
     }
 
     public Person book_busy(int id){
-        Person a = jdbcTemplate.query("select * from person join book b on person.person_id = b.person_id where b.id=?",
-                new BeanPropertyRowMapper<>(Person.class), id).stream().findAny().orElse(null);
-        if (a != null) {
-            System.out.println(a.getFullname());
-        }
         return jdbcTemplate.query("SELECT Person.* FROM Book JOIN Person ON Book.person_id = Person.person_id WHERE Book.id = ?",
                 new BeanPropertyRowMapper<>(Person.class), id).stream().findAny().orElse(null);
+    }
+
+    public void resque(int id){
+        jdbcTemplate.update("update Book set person_id=null where id = ?", id);
+    }
+
+    public void append(int people, int id){
+        jdbcTemplate.update("update book set person_id=? where id=?", people, id);
     }
 
     public void delete(int id){
