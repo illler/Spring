@@ -4,12 +4,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 public class Book {
 
     private int id;
     @NotEmpty(message = "Book should have a name!")
     private String title;
+    @Pattern(regexp = "([A-ZА-ЯЁ][a-zа-яё]+ [A-ZА-ЯЁ].[A-ZА-ЯЁ].|Нет автора)",
+            message = "ФИО автора должно быть в формате: Иванов И.И. или 'Нет автора'")
     private String author;
 
     @Max(value = 2022, message = "Книга не может быть в будущем!")

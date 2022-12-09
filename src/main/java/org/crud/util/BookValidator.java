@@ -25,10 +25,5 @@ public class BookValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Book book = (Book) target;
-
-//        if (personDAO.show(person.getEmail()).isPresent()){
-//            errors.rejectValue("email", "", "This email is already taken!");
-//        }
     }
 }

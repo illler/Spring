@@ -98,16 +98,5 @@ public class BookController {
         bookDAO.append(people, id);
         return "redirect:/library/book/" + id;
     }
-
-
-//    @GetMapping("/{id}")
-//    public String choosePerson(@PathVariable("id") int id,
-//                               Model model, @ModelAttribute("person")Person person){
-//
-//
-//        return "book/show";
-//    }
-
-
-
+    
 }

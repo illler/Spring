@@ -1,5 +1,6 @@
 package org.crud.controllers;
 
+import org.crud.dao.BookDAO;
 import org.crud.dao.PersonDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,12 @@ public class BatchController {
 
     private final PersonDAO personDAO;
 
+    private final BookDAO bookDAO;
+
     @Autowired
-    public BatchController(PersonDAO personDAO) {
+    public BatchController(PersonDAO personDAO, BookDAO bookDAO) {
         this.personDAO = personDAO;
+        this.bookDAO = bookDAO;
     }
 
     @GetMapping
@@ -22,15 +26,15 @@ public class BatchController {
         return "batch/index";
     }
 
-    @GetMapping("/without")
-    public String withoutBatch(){
-        personDAO.testMultipleUpdate();
-        return "redirect:/people";
+    @GetMapping("/people")
+    public String peopleBatch(){
+        personDAO.testBatchUpdate();
+        return "redirect:/library/people";
     }
 
-    @GetMapping("/with")
-    public String withBatch(){
-        personDAO.testBatchUpdate();
-        return "redirect:/people";
+    @GetMapping("/book")
+    public String bookBatch(){
+        bookDAO.testBatchUpdate();
+        return "redirect:/library/book";
     }
 }

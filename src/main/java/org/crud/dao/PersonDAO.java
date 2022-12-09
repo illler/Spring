@@ -58,24 +58,9 @@ public class PersonDAO {
     public void deleteAll(){
         jdbcTemplate.update("delete from Person where person_id>0");
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void testMultipleUpdate(){
-        List<Person> people = create1000people();
-        long before = System.currentTimeMillis();
-        for (Person person:people) {
-            jdbcTemplate.update("INSERT INTO Person (fullname, year_of_birth) VALUES(?, ?)",
-                    person.getFullname(), person.getYear_of_birth());
-        }
-        long after = System.currentTimeMillis();
-        System.out.println("Time: " + (after-before));
-    }
 
     public void testBatchUpdate(){
-        List<Person> people = create1000people();
+        List<Person> people = create10people();
         long before = System.currentTimeMillis();
 
         jdbcTemplate.batchUpdate("insert into Person(fullname, year_of_birth) values (?, ?)",
@@ -96,11 +81,11 @@ public class PersonDAO {
         System.out.println("Time: " + (after-before));
     }
 
-    public List<Person> create1000people(){
+    public List<Person> create10people(){
         List<Person> people = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            people.add(new Person(i, "FirstName" + i, 2000));
+        for (int i = 0; i < 10; i++) {
+            people.add(new Person("FirstName" + Math.ceil(Math.random()*2), 2000+i));
         }
         return people;
     }

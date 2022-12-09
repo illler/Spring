@@ -15,7 +15,6 @@
         <input type="submit" value="Освободить книгу"/>
     </form>
 </div>
-
 <div th:if="${not check}">
     <b>Книга свободна, кому её назначить?</b>
     <form th:method="PATCH" th:action="@{/library/book/{id}/upd(id=${books.geId()})}">
@@ -35,5 +34,8 @@
 <form th:method="DELETE" th:action="@{/library/book/{id}(id=${books.geId()})}">
     <input type="submit" value="Delete"/>
 </form>
+<br/>
+<hr/>
+<a href="/library/book"><button  style="color: black">Назад</button></a>
 </body>
 </html>
